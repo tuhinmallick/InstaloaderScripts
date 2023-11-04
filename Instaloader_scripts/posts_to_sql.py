@@ -79,25 +79,14 @@ pbar = tqdm(total=ammount, bar_format='{l_bar}{bar:20}{r_bar}{bar:-20b}', desc=m
 for json_file in json_files:
 	to_xlsx(json_file) # This is the main function
 
-	post_text_list = []
-	account_name_list = []
-	shortcode_list = []
-	timestamp_list = []
-	like_count_list = []
-	comment_count_list = []
-	video_view_count_list = []
-	comments_disabled_list = []
-
-
-	post_text_list.append(info["post_text"])
-	account_name_list.append(info["account_name"])
-	shortcode_list.append(info["shortcode"])
-	timestamp_list.append(info["timestamp"])
-	like_count_list.append(info["like_count"])
-	comment_count_list.append(info["comment_count"])
-	video_view_count_list.append(info["video_view_count"])
-	comments_disabled_list.append(info["comments_disabled"])
-
+	post_text_list = [info["post_text"]]
+	account_name_list = [info["account_name"]]
+	shortcode_list = [info["shortcode"]]
+	timestamp_list = [info["timestamp"]]
+	like_count_list = [info["like_count"]]
+	comment_count_list = [info["comment_count"]]
+	video_view_count_list = [info["video_view_count"]]
+	comments_disabled_list = [info["comments_disabled"]]
 	df = pd.DataFrame({
 		"text":post_text_list,
 		"account":account_name_list,

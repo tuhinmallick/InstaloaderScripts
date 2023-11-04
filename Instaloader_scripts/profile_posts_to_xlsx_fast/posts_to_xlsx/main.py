@@ -28,4 +28,4 @@ if __name__ == '__main__':
 	requested_data = insta_request(profile_list)
 	parsed_data = extractor(requested_data)
 	x.framer(parsed_data)
-	print("--- %s seconds ---" % (time.time() - start_time))
+	print(f"--- {time.time() - start_time} seconds ---")

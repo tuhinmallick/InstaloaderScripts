@@ -21,13 +21,13 @@ def hashtag_post_between(hashtag):
 
 	SINCE = datetime(2019, 12, 19) # Recent Date / format = (yyyy, mm, dd)
 	UNTIL = datetime(2019, 9, 1) # Oldest Date /format = (yyyy, mm, dd)
-	print("capturing posts from: "+str(SINCE)+" to: "+str(UNTIL))
+	print(f"capturing posts from: {str(SINCE)} to: {str(UNTIL)}")
 
 	owner_username_list = []
 	owner_id_list = []
 	post_date_list = []
 	post_caption_list = []
-	tagged_users_list = [] 
+	tagged_users_list = []
 	caption_mentions_list = []
 	is_video_list = []
 	video_view_count_list = []

@@ -30,9 +30,9 @@ def get_profile_posts(username, save_path):
 
     profile = instaloader.Profile.from_username(L.context, username)
     posts = profile.get_posts()
+    post_sleep = 1 # Sleep 1 seconds between posts
     for post in posts:
-        post_sleep = 1 # Sleep 1 seconds between posts
-        print("sleeping for: " + str(post_sleep) + " seconds")
+        print(f"sleeping for: {post_sleep} seconds")
         time.sleep(post_sleep)
 
         data = post.__dict__
@@ -55,43 +55,25 @@ def decode_jsons(username, save_path):
         with open(file, encoding="utf-8") as f:
             data = json.load(f)
 
-            list_owner_id = []
-            list_post_date = []
-            list_likes = []
-            list_comments = []
             list_caption = []
             list_of_tagged_users = []
-            list_hashtags_in_text = []
-            list_is_video = []
-            list_post_shortcode = []
-
             user_id = data["owner"]["id"]
-            list_owner_id.append(user_id)
-
+            list_owner_id = [user_id]
             date = datetime.fromtimestamp(data["taken_at_timestamp"])
-            list_post_date.append(date)
-
+            list_post_date = [date]
             is_video = data["is_video"]
-            list_is_video.append(is_video)
-
+            list_is_video = [is_video]
             try:
                 vid_v_count = data["video_view_count"]
             except KeyError:
                 vid_v_count = "FALSE"
-                pass
-
             shortcode = "https://www.instagram.com/p/"+data["shortcode"]
-            list_post_shortcode.append(shortcode)
-
+            list_post_shortcode = [shortcode]
             comments = data["edge_media_to_comment"]["count"]
-            list_comments.append(comments)
-
+            list_comments = [comments]
             try:
                 tagged_users = data["edge_media_to_tagged_user"]["edges"]
-                list_of_tagged = []
-                for user in tagged_users:
-                    tagged_user = user["node"]["user"]["username"]
-                    list_of_tagged.append(tagged_user)
+                list_of_tagged = [user["node"]["user"]["username"] for user in tagged_users]
                 list_of_tagged_users.append(list_of_tagged)
             except KeyError:
                 list_of_tagged_users.append("False")
@@ -104,11 +86,9 @@ def decode_jsons(username, save_path):
 
 
             hashtags_in_text = [word for word in caption.split() if word.startswith("#")]
-            list_hashtags_in_text.append(hashtags_in_text)
-
+            list_hashtags_in_text = [hashtags_in_text]
             likes = data["edge_media_preview_like"]["count"]
-            list_likes.append(likes)
-
+            list_likes = [likes]
             df = pd.DataFrame({
                 "username": username,
                 "user_id": list_owner_id,
@@ -139,7 +119,7 @@ def loop():
 
         actual_time = time.strftime("%H:%M:%S")
         time_sleep = minutes / 60
-        print("sleeping for: " + str(time_sleep) + " minutes at " + actual_time)
+        print(f"sleeping for: {str(time_sleep)} minutes at " + actual_time)
         time.sleep(minutes)
 
 
