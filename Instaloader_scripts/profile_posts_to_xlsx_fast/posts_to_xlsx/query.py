@@ -1,7 +1,7 @@
 import instaloader
 
 def request(user):
-    print("------> Making request for user: "+user+" wait!")
+    print(f"------> Making request for user: {user} wait!")
     L = instaloader.Instaloader(
         download_pictures=False,
         download_videos=False,
@@ -13,5 +13,4 @@ def request(user):
         download_comments=False,
     )
     profile = instaloader.Profile.from_username(L.context, user)
-    posts = profile.get_posts()
-    return posts
+    return profile.get_posts()
